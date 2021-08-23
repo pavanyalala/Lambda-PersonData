@@ -114,6 +114,22 @@ namespace PersonDataManagement
                 DisplayPersonDetails(list);
             }
         }
+        public void RemoveSpecificName(List<ContactModel> list)
+        {
+            if (list.Count <= 0)
+            {
+                Console.WriteLine("Person details record not found ");
+            }
+            else
+            {
+                Console.Write("Enter The Person Name To Remove : ");
+                string name = Console.ReadLine();
+                list.RemoveAll(x => x.Name == name);
+                Console.WriteLine("Data from records removed successfully");
+                Console.WriteLine("Details from list");
+                DisplayPersonDetails(list);
+            }
+        }
         public void DataMangement()
         {
             const int ADD_PERSON = 1;
