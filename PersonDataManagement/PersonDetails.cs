@@ -53,20 +53,38 @@ namespace PersonDataManagement
                 }
             }
         }
+        public static void RetriveTopTwoAgesBetween13And18(List<ContactModel> list)
+        {
+            if (list.Count <= 0)
+                Console.WriteLine("Person details record not found ");
+            else
+            {
+                var data = list.Where(x => x.Age >= 13 && x.Age <= 18).Take(2);
+                foreach (var details in data)
+                {
+                    Console.WriteLine("Serial Number : " + details.SSN);
+                    Console.WriteLine("Name : " + details.Name);
+                    Console.WriteLine("Address : " + details.Address);
+                    Console.WriteLine("Age : " + details.Age);
+                }
+            }
+        }
         public void DataMangement()
         {
             const int ADD_PERSON = 1;
-            const int RETRIVE_TOP_TWO_AGE = 2; 
-            const int DISPLAY_PERSON = 3;
-            const int EXIT = 4;
+            const int RETRIVE_TOP_TWO_AGE = 2;
+            const int RETRIVE_AGE_BETWEEN_13AND18 = 3;
+            const int DISPLAY_PERSON = 4;
+            const int EXIT = 5;
 
             List<ContactModel> list = new List<ContactModel>();
             while (true)
             {
                 Console.WriteLine("Enter 1.Add Person Details " +
                                   "\n2.Retrive Top two ages below 60 " +
-                                  "Enter\n3.Display Person Details " +
-                                  "Enter\n4.Exit "
+                                  "\n3.Retrive Ages Between 13 and 18" + 
+                                  "Enter\n4.Display Person Details " +
+                                  "Enter\n5.Exit "
                               );
                 int choice = Convert.ToInt32(Console.ReadLine());
                 if (choice == EXIT)
@@ -79,6 +97,9 @@ namespace PersonDataManagement
                             break;
                         case RETRIVE_TOP_TWO_AGE:
                             PersonDetails.RetriveTopTwoAgesBelow60(list);
+                            break;
+                        case RETRIVE_AGE_BETWEEN_13AND18:
+                            PersonDetails.RetriveTopTwoAgesBetween13And18(list);
                             break;
                         case DISPLAY_PERSON:
                             PersonDetails.DisplayPersonDetails(list);
