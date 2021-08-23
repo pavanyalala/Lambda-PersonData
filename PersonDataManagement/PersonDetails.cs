@@ -82,14 +82,34 @@ namespace PersonDataManagement
                 Console.WriteLine("Average Age " + totalAge/list.Count);
             }
         }
+        public static void NameCheck(List<ContactModel> list)
+        {
+            if (list.Count > 0)
+            {
+                Console.Write("Enter Person of the Name To Check: ");
+                string name = Console.ReadLine();
+                var check = list.Any(x => x.Name.Equals(name));
+                if (check == true)
+                {
+                    Console.WriteLine("Person Name Found : " + name);
+                }
+                else
+                    Console.WriteLine("Person Name Not Found ");
+            }
+            else
+            {
+                Console.WriteLine("Person Details Record is Emoty");
+            }
+        }
         public void DataMangement()
         {
             const int ADD_PERSON = 1;
             const int RETRIVE_TOP_TWO_AGE = 2;
             const int RETRIVE_AGE_BETWEEN_13AND18 = 3;
             const int Average_AGE = 4;
-            const int DISPLAY_PERSON = 5;
-            const int EXIT = 6;
+            const int NAME_CHECK = 5;
+            const int DISPLAY_PERSON = 6;
+            const int EXIT = 7;
 
             List<ContactModel> list = new List<ContactModel>();
             while (true)
@@ -98,8 +118,9 @@ namespace PersonDataManagement
                                   "\n2.Retrive Top two ages below 60 " +
                                   "\n3.Retrive Ages Between 13 and 18" + 
                                   "\n4.Average Age " +
-                                  "Enter\n5.Display Person Details " +
-                                  "Enter\n6.Exit "
+                                  "\n5.Name Check " +
+                                  "\n6.Display Person Details " +
+                                  "\n7.Exit "
                               );
                 int choice = Convert.ToInt32(Console.ReadLine());
                 if (choice == EXIT)
@@ -118,6 +139,9 @@ namespace PersonDataManagement
                             break;
                         case Average_AGE:
                             PersonDetails.AverageAge(list);
+                            break;
+                        case NAME_CHECK:
+                            PersonDetails.NameCheck(list);
                             break;
                         case DISPLAY_PERSON:
                             PersonDetails.DisplayPersonDetails(list);
