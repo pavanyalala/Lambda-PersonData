@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PersonDataManagement
@@ -36,17 +37,36 @@ namespace PersonDataManagement
                 }
             }
         }
+        public static void RetriveTopTwoAgesBelow60(List<ContactModel> list)
+        {
+            if (list.Count <= 0)
+                Console.WriteLine("Person details record not found ");
+            else
+            {
+                var data = list.Where(x => x.Age < 60).Take(2);
+                foreach(var details in data)
+                {
+                    Console.WriteLine("Serial Number : " + details.SSN);
+                    Console.WriteLine("Name : " + details.Name);
+                    Console.WriteLine("Address : " + details.Address);
+                    Console.WriteLine("Age : " + details.Age);
+                }
+            }
+        }
         public void DataMangement()
         {
             const int ADD_PERSON = 1;
-            const int DISPLAY_PERSON = 2;
-            const int EXIT = 3;
+            const int RETRIVE_TOP_TWO_AGE = 2; 
+            const int DISPLAY_PERSON = 3;
+            const int EXIT = 4;
+
             List<ContactModel> list = new List<ContactModel>();
             while (true)
             {
                 Console.WriteLine("Enter 1.Add Person Details " +
-                                  "Enter\n2.Display Person Details " +
-                                  "Enter\n3.Exit "
+                                  "\n2.Retrive Top two ages below 60 " +
+                                  "Enter\n3.Display Person Details " +
+                                  "Enter\n4.Exit "
                               );
                 int choice = Convert.ToInt32(Console.ReadLine());
                 if (choice == EXIT)
@@ -56,6 +76,9 @@ namespace PersonDataManagement
                     {
                         case ADD_PERSON:
                             PersonDetails.AddPersonDetails(list);
+                            break;
+                        case RETRIVE_TOP_TWO_AGE:
+                            PersonDetails.RetriveTopTwoAgesBelow60(list);
                             break;
                         case DISPLAY_PERSON:
                             PersonDetails.DisplayPersonDetails(list);
