@@ -69,13 +69,27 @@ namespace PersonDataManagement
                 }
             }
         }
+        public static void AverageAge(List<ContactModel> list)
+        {
+            if (list.Count <= 0)
+                Console.WriteLine("Person details record not found ");
+            else
+            {
+                double totalAge = 0;
+                var data = list.Where(x => x.Age >= 0);
+                foreach (var age in data)
+                    totalAge = totalAge + age.Age;
+                Console.WriteLine("Average Age " + totalAge/list.Count);
+            }
+        }
         public void DataMangement()
         {
             const int ADD_PERSON = 1;
             const int RETRIVE_TOP_TWO_AGE = 2;
             const int RETRIVE_AGE_BETWEEN_13AND18 = 3;
-            const int DISPLAY_PERSON = 4;
-            const int EXIT = 5;
+            const int Average_AGE = 4;
+            const int DISPLAY_PERSON = 5;
+            const int EXIT = 6;
 
             List<ContactModel> list = new List<ContactModel>();
             while (true)
@@ -83,8 +97,9 @@ namespace PersonDataManagement
                 Console.WriteLine("Enter 1.Add Person Details " +
                                   "\n2.Retrive Top two ages below 60 " +
                                   "\n3.Retrive Ages Between 13 and 18" + 
-                                  "Enter\n4.Display Person Details " +
-                                  "Enter\n5.Exit "
+                                  "\n4.Average Age " +
+                                  "Enter\n5.Display Person Details " +
+                                  "Enter\n6.Exit "
                               );
                 int choice = Convert.ToInt32(Console.ReadLine());
                 if (choice == EXIT)
@@ -100,6 +115,9 @@ namespace PersonDataManagement
                             break;
                         case RETRIVE_AGE_BETWEEN_13AND18:
                             PersonDetails.RetriveTopTwoAgesBetween13And18(list);
+                            break;
+                        case Average_AGE:
+                            PersonDetails.AverageAge(list);
                             break;
                         case DISPLAY_PERSON:
                             PersonDetails.DisplayPersonDetails(list);
