@@ -98,7 +98,20 @@ namespace PersonDataManagement
             }
             else
             {
-                Console.WriteLine("Person Details Record is Emoty");
+                Console.WriteLine("Person Details Record is Empty");
+            }
+        }
+        public static void SkipRecordForAgeBelow60(List<ContactModel> list)
+        {
+            if (list.Count <= 0)
+                Console.WriteLine(" Person Data is Empty ");
+
+            else
+            {
+                list.RemoveAll(x => x.Age < 60);
+                Console.WriteLine("Person Details from Record Below 60 Skipped Successfully ");
+                Console.WriteLine("Details from list");
+                DisplayPersonDetails(list);
             }
         }
         public void DataMangement()
@@ -108,8 +121,9 @@ namespace PersonDataManagement
             const int RETRIVE_AGE_BETWEEN_13AND18 = 3;
             const int Average_AGE = 4;
             const int NAME_CHECK = 5;
-            const int DISPLAY_PERSON = 6;
-            const int EXIT = 7;
+            const int SKIP_DATA = 6;
+            const int DISPLAY_PERSON = 7;
+            const int EXIT = 8;
 
             List<ContactModel> list = new List<ContactModel>();
             while (true)
@@ -119,8 +133,9 @@ namespace PersonDataManagement
                                   "\n3.Retrive Ages Between 13 and 18" + 
                                   "\n4.Average Age " +
                                   "\n5.Name Check " +
-                                  "\n6.Display Person Details " +
-                                  "\n7.Exit "
+                                  "\n6.Skipped Details Below Age 60" +
+                                  "\n7.Display Person Details " +
+                                  "\n8.Exit "
                               );
                 int choice = Convert.ToInt32(Console.ReadLine());
                 if (choice == EXIT)
@@ -142,6 +157,9 @@ namespace PersonDataManagement
                             break;
                         case NAME_CHECK:
                             PersonDetails.NameCheck(list);
+                            break;
+                        case SKIP_DATA:
+                            PersonDetails.SkipRecordForAgeBelow60(list);
                             break;
                         case DISPLAY_PERSON:
                             PersonDetails.DisplayPersonDetails(list);
